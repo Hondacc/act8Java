@@ -1,0 +1,86 @@
+package act8java;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Act8Java {
+
+    public static void main(String[] args) {
+        
+        // Arrays que contienen los valores asignables al ArrayList "Deck"
+        
+        Scanner Line = new Scanner(System.in);
+        
+        Deck testDeck = new Deck();
+        
+        boolean isPlaying = true;
+        char choice;
+        
+        // Ciclo principal
+        
+        while(isPlaying){
+            
+            /* 
+            
+            El ArrayList comienza en secuencia por defecto, por lo que 
+            necesitamos barajearlo al principio antes que el juego empiece.
+            
+            */
+            
+            testDeck.StartShuffle();
+            
+            System.out.println("* * * * * * * * * * * * * * * *\n");
+            
+            System.out.println("Seleccionar acción: ");
+            System.out.println("a) Shuffle Deck    b) Head Card");
+            System.out.println("c) Random Card     d) Draw Hand");
+            System.out.println("e) Deck Size       f) Exit");
+            
+            System.out.print("\nSelección: ");
+            
+            choice = Line.next().charAt(0);
+            
+            switch(choice){
+                
+                case'a':
+                    testDeck.Shuffle();
+                    break;
+                case'b':
+                    testDeck.HeadCard();
+                    break;
+                case'c':
+                    testDeck.PickRandom();
+                    break;
+                case'd':
+                    
+                    if(testDeck.getSize() > 5){
+                        
+                        testDeck.HandCard();
+                    } else {
+                        
+                        System.out.println("No quedan suficientes cartas en el Deck.");
+                    }
+                    break;
+                case'e':
+                    System.out.println("Cartas en el Deck: " + testDeck.getSize());
+                    break;
+                case'f':
+                    isPlaying = false;
+                    break;
+                default:
+                    System.err.println("Operación no reconocida.");
+            }
+            
+            if(testDeck.getSize() == 0){
+                
+                isPlaying = false;
+                System.out.println("Las cartas del Deck se han acabado.");
+            }
+            
+            System.out.println("* * * * * * * * * * * * * * * *");
+        }
+        
+        System.out.println("El juego ha terminado.");
+        
+    }
+    
+}
