@@ -1,10 +1,10 @@
 package act8java;
-import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import java.util.Scanner;
 
 public class Act8Java {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         
         // Arrays que contienen los valores asignables al ArrayList "Deck"
         
@@ -13,7 +13,7 @@ public class Act8Java {
         Deck testDeck = new Deck();
         
         boolean isPlaying = true;
-        char choice;
+        char choice = 'x';
         
         // Ciclo principal
         
@@ -28,16 +28,13 @@ public class Act8Java {
             
             testDeck.StartShuffle();
             
-            System.out.println("* * * * * * * * * * * * * * * *\n");
-            
-            System.out.println("Seleccionar acción: ");
-            System.out.println("a) Shuffle Deck    b) Head Card");
-            System.out.println("c) Random Card     d) Draw Hand");
-            System.out.println("e) Deck Size       f) Exit");
-            
-            System.out.print("\nSelección: ");
-            
-            choice = Line.next().charAt(0);
+            choice = JOptionPane.showInputDialog(
+                    "Opciones: \n"
+                    + "a) Shuffle   b) Draw First\n"
+                    + "c) Random    d) Draw Five\n"
+                    + "e) Exit\n"
+                    + "Cartas en el Deck: " + testDeck.getSize()).charAt(0);
+                
             
             switch(choice){
                 
@@ -50,36 +47,30 @@ public class Act8Java {
                 case'c':
                     testDeck.PickRandom();
                     break;
-                case'd':
-                    
-                    if(testDeck.getSize() > 5){
-                        
-                        testDeck.HandCard();
-                    } else {
-                        
-                        System.out.println("No quedan suficientes cartas en el Deck.");
-                    }
+                case'd':  
+                    testDeck.HandCard();
                     break;
                 case'e':
-                    System.out.println("Cartas en el Deck: " + testDeck.getSize());
-                    break;
-                case'f':
                     isPlaying = false;
+                    JOptionPane.showMessageDialog(null, "¡Gracias por jugar!");
                     break;
+                    
                 default:
-                    System.err.println("Operación no reconocida.");
-            }
+                    JOptionPane.showMessageDialog(null, "Opción no reconocida.");
+            } 
             
             if(testDeck.getSize() == 0){
                 
                 isPlaying = false;
-                System.out.println("Las cartas del Deck se han acabado.");
+                
+                JOptionPane.showMessageDialog(null, "El Deck está vacío. \n" + 
+                "¡Gracias por jugar!");
+                
             }
             
-            System.out.println("* * * * * * * * * * * * * * * *");
         }
         
-        System.out.println("El juego ha terminado.");
+        
         
     }
     
